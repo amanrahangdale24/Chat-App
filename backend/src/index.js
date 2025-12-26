@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")))
 
     app.get("/*", (_, res) => {
-        res.send(path.join(__dirname, "../frontend/dist/index.html"))
+        res.sendFile(path.join(__dirname, "../frontend/dist/index.html"))
     });
     // any route other than the defined above, will hit the *; 
 }
