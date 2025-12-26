@@ -19,10 +19,11 @@ app.use("/api/message", messageRoutes);
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")))
 
-    app.get("/*", (_, res) => {
+    app.get("*", (_, res) => {
         res.sendFile(path.join(__dirname, "../frontend/dist/index.html"))
     });
     // any route other than the defined above, will hit the *; 
 }
+
 
 app.listen(PORT, () => { console.log(`server is running on port ${PORT}`) }); 
