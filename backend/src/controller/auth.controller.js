@@ -1,6 +1,9 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt"
 import { generateToken } from "../lib/utils.js";
+import { sendMail } from "../emails/emailHandler.js";
+import { createWelcomeEmailTemplate } from "../emails/emailTemplate.js";
+import { ENV } from "../lib/env.js";
 
 export const signup = async (req,res)=>{
     const {fullname, email, password} = req.body; 
@@ -39,14 +42,22 @@ export const signup = async (req,res)=>{
         // following the modern flow, after successfull sign up -> Client receives token and treats user as logged in
 
         if(newUser){
-            generateToken(newUser._id, res);
             await newUser.save(); 
+            generateToken(newUser._id, res);
             res.status(201).json({
                 _id: newUser._id,
                 fullname: newUser.fullname,
                 email: newUser.email,
                 profilePic: newUser.profilePic
-            }); 
+            });
+
+            // send a welcome email 
+            try {
+                await sendMail(newUser.email, "Welcome to messenger app", createWelcomeEmailTemplate(newUser.fullname,ENV.CLIENT_URL))
+            } catch (error) {
+                console.error("Failed to send welcome email:", error);
+            }
+
         }else{
             res.status(400).json({
                 message: "Invalid user data"
