@@ -14,7 +14,7 @@ const ChatPage = () => {
       {/* BORDER */}
       <div className="w-full flex shadow rounded-lg shadow-slate-700 flex-col md:flex-row">
         {/* LEFT SIDE */}
-        <div className='w-80 bg-slate-800/50 backdrop-blur-sm flex flex-row'>
+        <div className='w-80 bg-slate-800/50 backdrop-blur-sm flex flex-col'>
           <ProfileHeader/>
           <ActiveTabSwitch/>
 
