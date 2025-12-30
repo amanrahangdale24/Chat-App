@@ -18,7 +18,7 @@ export const useChatStore = create((set,get)=>({
     },
 
     setActiveTab: (tab)=> set({activeTab: tab}),
-    setSelecteduser: (selectedUser)=> set({selectedUser}),
+    setSelectedUser: (selectedUser)=> set({selectedUser}),
 
     getAllContacts: async()=>{
         try {
