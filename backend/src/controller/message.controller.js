@@ -81,9 +81,11 @@ export const getChatPartners = async (req, res) => {
         const chatPartnerIds = [
             ...new Set(
                 messages.map((msg) => {
+                    // If the logged-in user is the sender, the partner is the receiver;
+                    // otherwise (logged-in user is the receiver), the partner is the sender.
                     return msg.senderId.toString() === loggedInUser.toString()
                         ? msg.recieverId.toString()
-                        : msg.recieverId.toString()
+                        : msg.senderId.toString();
                 })
             )
         ]
