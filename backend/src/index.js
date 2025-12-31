@@ -15,7 +15,7 @@ const app = express();
 const __dirname = path.resolve();
 const PORT = ENV.PORT || 4044;
 
-app.use(express.json()); 
+app.use(express.json({ limit: "5mb" })) // for the large Payload error. 
 app.use(cors({
     origin:ENV.CLIENT_URL,
     credentials:true
